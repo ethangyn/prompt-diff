@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Paste two prompts and see a side-by-side diff. Everything runs in your browser." />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'; font-src 'self'; img-src data:; base-uri 'none'; form-action 'none'" />
+    <title>prompt-diff — compare prompts privately</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23152018'/%3E%3Cpath d='M9 16h12M16 10l6 6-6 6' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="prompt-diff home">
+          <span class="brand-mark" aria-hidden="true">↔</span>
+          <span>prompt<span class="brand-accent">-diff</span></span>
+        </a>
+        <span class="privacy-note"><span class="status-dot" aria-hidden="true"></span>Runs locally in your browser</span>
+      </header>
+
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">Compare with confidence</p>
+        <h1 id="page-title">See what changed.<br /><span>Keep the signal.</span></h1>
+        <p class="intro">Paste two prompts below to reveal every meaningful change, from a single word to an entire instruction.</p>
+      </section>
+
+      <section class="editor-grid" aria-label="Prompt editors">
+        <div class="prompt-card">
+          <div class="card-heading">
+            <label for="prompt-a"><span class="prompt-badge badge-a">A</span>Prompt A</label>
+            <button class="clear-button" type="button" data-clear="prompt-a">Clear</button>
+          </div>
+          <textarea id="prompt-a" spellcheck="false" aria-describedby="prompt-a-help"></textarea>
+          <p class="card-help" id="prompt-a-help">Your original prompt</p>
+        </div>
+
+        <div class="swap-mark" aria-hidden="true">→</div>
+
+        <div class="prompt-card">
+          <div class="card-heading">
+            <label for="prompt-b"><span class="prompt-badge badge-b">B</span>Prompt B</label>
+            <button class="clear-button" type="button" data-clear="prompt-b">Clear</button>
+          </div>
+          <textarea id="prompt-b" spellcheck="false" aria-describedby="prompt-b-help"></textarea>
+          <p class="card-help" id="prompt-b-help">Your revised prompt</p>
+        </div>
+      </section>
+
+      <section class="stats-row" aria-label="Prompt statistics">
+        <div class="stat-card">
+          <span class="stat-label">Characters</span>
+          <div class="stat-values"><strong id="chars-a">0</strong><span>→</span><strong id="chars-b">0</strong></div>
+          <span class="stat-delta" id="chars-delta">No change</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Words</span>
+          <div class="stat-values"><strong id="words-a">0</strong><span>→</span><strong id="words-b">0</strong></div>
+          <span class="stat-delta" id="words-delta">No change</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Rough tokens</span>
+          <div class="stat-values"><strong id="tokens-a">0</strong><span>→</span><strong id="tokens-b">0</strong></div>
+          <span class="stat-delta" id="tokens-delta">No change</span>
+        </div>
+      </section>
+
+      <section class="diff-section" aria-labelledby="diff-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Live comparison</p>
+            <h2 id="diff-title">Diff</h2>
+          </div>
+          <div class="diff-tools">
+            <div class="view-toggle" role="group" aria-label="Diff layout">
+              <button type="button" id="view-split" aria-pressed="true">Side by side</button>
+              <button type="button" id="view-inline" aria-pressed="false">Inline</button>
+            </div>
+            <div class="legend" aria-label="Diff legend">
+              <span><i class="legend-swatch removed"></i>Removed</span>
+              <span><i class="legend-swatch added"></i>Added</span>
+            </div>
+          </div>
+        </div>
+        <div class="diff-panel is-split" id="diff-output" aria-live="polite"></div>
+      </section>
+
+      <footer class="footer">
+        <span>Private by default · No uploads · No build step</span>
+        <button class="reset-button" type="button" id="reset-button">Reset sample prompts</button>
+      </footer>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
