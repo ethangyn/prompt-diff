@@ -13,7 +13,9 @@ Everything runs in the browser. There is no build step, no upload, and no analyt
 
 ## GitHub Pages
 
-Live site: https://ethangyn.github.io/prompt-diff/
+https://ethangyn.github.io/prompt-diff/
+
+Publish the `main` branch from the repository root (`/`).
 
 ## Files
 
